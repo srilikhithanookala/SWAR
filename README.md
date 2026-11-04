@@ -1,4 +1,4 @@
-# 🤟 SignBridge AI – Breaking Communication Barriers
+# 🤟 SWAR – Breaking Communication Barriers
 
 > **“From Hands to Voice. From Silence to Conversation.”**
 
