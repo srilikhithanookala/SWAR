@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Camera, MessageSquare, History, LayoutDashboard, BookOpen, User, Menu, X, Sparkles } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 
-export default function Navbar({ activeTab, setActiveTab, currentUser }) {
+export default function Navbar({ activeTab, setActiveTab, currentUser, onOpenAccessibility }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
@@ -29,12 +29,15 @@ export default function Navbar({ activeTab, setActiveTab, currentUser }) {
             onClick={() => handleNavClick('landing')}
             className="flex items-center gap-3 cursor-pointer group"
           >
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-brand-600 to-purpleBrand-600 flex items-center justify-center text-white shadow-glow group-hover:scale-105 transition-transform">
-              <span className="text-xl">🤟</span>
+            <div className="w-10 h-10 rounded-xl overflow-hidden shadow-glow group-hover:scale-105 transition-transform flex items-center justify-center bg-slate-900 border border-slate-700/60">
+              <img src="/swar-icon.png" alt="SWAR Logo" className="w-full h-full object-cover" />
             </div>
-            <div>
-              <span className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-brand-600 to-purpleBrand-600">
-                SignBridge AI
+            <div className="flex flex-col">
+              <span className="text-xl font-black tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-brand-400 via-brand-500 to-purpleBrand-500 leading-none">
+                SWAR
+              </span>
+              <span className="text-[9px] font-semibold text-slate-400 tracking-wider uppercase mt-0.5">
+                Every Sign Has a Voice
               </span>
             </div>
           </div>
