@@ -9,10 +9,7 @@ import DashboardPage from './pages/DashboardPage';
 import LearnSignsPage from './pages/LearnSignsPage';
 import AuthPage from './pages/AuthPage';
 import { getCurrentUser } from './services/supabaseClient';
-import { Eye, X, Server } from 'lucide-react';
-
-// Hardcoded directly to avoid any Vite build-time variable injection bugs
-const BACKEND_URL = "https://signbridge-backend-9ir2.onrender.com";
+import { Eye, ShieldCheck, RefreshCw, X } from 'lucide-react';
 
 export default function App() {
   const getTabFromHash = () => {
@@ -23,11 +20,9 @@ export default function App() {
 
   const [activeTab, setActiveTabState] = useState(getTabFromHash());
   const [currentUser, setCurrentUser] = useState(null);
+  const [loadingUser, setLoadingUser] = useState(true);
   const [isAccessibilityOpen, setIsAccessibilityOpen] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
-
-  // State to store FastAPI backend connection status
-  const [backendStatus, setBackendStatus] = useState({ connected: false, message: 'Connecting...' });
 
   const setActiveTab = (tabId) => {
     setActiveTabState(tabId);
@@ -53,37 +48,51 @@ export default function App() {
 
   useEffect(() => {
     loadUser();
-    checkBackendConnection();
   }, []);
 
-  // Fetch root endpoint from your live FastAPI backend server
-  const checkBackendConnection = async () => {
-    try {
-      const response = await fetch(`${BACKEND_URL}/`); // Ensure no slash before ${BACKEND_URL}
-      const data = await response.json();
-      setBackendStatus({ connected: true, message: data.message });
-    } catch (error) {
-      console.error('FastAPI Backend connection failed:', error);
-      setBackendStatus({ connected: false, message: 'Backend Offline' });
-    }
-  };
   const loadUser = async () => {
-    const user = await getCurrentUser();
-    setCurrentUser(user);
-    if (!user) {
-      setShowAuthModal(true);
-    } else if (user?.highContrast) {
-      document.body.classList.add('high-contrast');
+    try {
+      setLoadingUser(true);
+      const user = await getCurrentUser();
+      setCurrentUser(user);
+      if (!user) {
+        setShowAuthModal(true);
+      } else if (user?.highContrast) {
+        document.body.classList.add('high-contrast');
+      }
+    } catch (err) {
+      console.warn('Error loading user session:', err);
+    } finally {
+      setLoadingUser(false);
     }
   };
 
   const handleAuthComplete = (user) => {
     setCurrentUser(user);
     setShowAuthModal(false);
+    if (user?.highContrast) {
+      document.body.classList.add('high-contrast');
+    }
   };
 
+  if (loadingUser) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-900 text-white text-xs font-semibold">
+        <div className="flex items-center gap-3">
+          <RefreshCw className="w-5 h-5 text-brand-500 animate-spin" />
+          <span>Loading SWAR...</span>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans">
+    <div 
+      className="min-h-screen flex flex-col font-sans transition-colors duration-200 relative"
+      style={{ backgroundColor: 'var(--color-bg)', color: 'var(--color-text)' }}
+    >
+      
+      {/* Top Navigation Bar */}
       <Navbar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
@@ -91,16 +100,7 @@ export default function App() {
         onOpenAccessibility={() => setIsAccessibilityOpen(true)}
       />
 
-      {/* Status banner to confirm FastAPI connection */}
-      <div className={`px-4 py-1.5 text-xs font-medium text-center flex items-center justify-center gap-2 ${
-        backendStatus.connected 
-          ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-b border-emerald-500/20' 
-          : 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-b border-amber-500/20'
-      }`}>
-        <Server className="w-3.5 h-3.5" />
-        <span>FastAPI Status: <strong>{backendStatus.message}</strong></span>
-      </div>
-
+      {/* Main Pages */}
       <main className="flex-1">
         {activeTab === 'landing' && <LandingPage onNavigate={setActiveTab} />}
         {activeTab === 'translator' && <LiveTranslatorPage currentUser={currentUser} />}
@@ -111,31 +111,58 @@ export default function App() {
         {activeTab === 'auth' && <AuthPage currentUser={currentUser} setCurrentUser={handleAuthComplete} />}
       </main>
 
+      {/* Sign In / Email OTP Verification Modal Popup */}
       {showAuthModal && !currentUser && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/80 backdrop-blur-md p-4">
-          <div className="relative w-full max-w-lg">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/80 backdrop-blur-md p-4 animate-fade-in">
+          <div className="relative w-full max-w-md">
             <button
               onClick={() => setShowAuthModal(false)}
-              className="absolute top-4 right-4 z-10 p-2 text-slate-400 hover:text-white bg-slate-800 rounded-full"
+              className="absolute top-4 right-4 z-10 p-2 text-slate-400 hover:text-white bg-slate-800/80 rounded-full transition"
+              title="Explore platform"
             >
               <X className="w-5 h-5" />
             </button>
+            
             <AuthPage
               currentUser={currentUser}
               setCurrentUser={handleAuthComplete}
-              isModal={true}
-              onCloseModal={() => setShowAuthModal(false)}
             />
           </div>
         </div>
       )}
 
+      {/* Accessibility Panel Modal */}
       <AccessibilityPanel
         isOpen={isAccessibilityOpen}
         onClose={() => setIsAccessibilityOpen(false)}
         currentUser={currentUser}
         onUserUpdate={setCurrentUser}
       />
+
+      {/* Footer */}
+      <footer className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-8 px-4 sm:px-6 lg:px-8 mt-12">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+          <div className="flex items-center gap-2 font-semibold">
+            <img src="/swar-icon.png" alt="SWAR Logo" className="w-5 h-5 rounded-md object-cover" />
+            <span className="text-slate-800 dark:text-white font-bold">SWAR</span>
+            <span>– Every Sign Has a Voice</span>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => setIsAccessibilityOpen(true)}
+              className="flex items-center gap-1 hover:text-brand-600 font-semibold"
+            >
+              <Eye className="w-4 h-4 text-brand-600" /> Accessibility Options
+            </button>
+            <span>•</span>
+            <button onClick={() => setActiveTab('learn')} className="hover:underline font-medium">Dictionary</button>
+            <span>•</span>
+            <button onClick={() => setActiveTab('auth')} className="hover:underline font-medium">Account</button>
+          </div>
+        </div>
+      </footer>
+
     </div>
   );
 }
