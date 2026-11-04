@@ -8,7 +8,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Dynamic Design Tokens matching SignBridge AI Theme
+        // Dynamic Design Tokens matching SWAR Theme
         bgMain: 'var(--color-bg)',
         cardBg: 'var(--color-surface)',
         cardBgAlt: 'var(--color-surface-alt)',
