@@ -1,29 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/swar-icon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SWAR – Every Sign Has a Voice</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script>
-      (function() {
-        try {
-          var saved = localStorage.getItem('swar-theme') || localStorage.getItem('signbridge-theme');
-          var theme = (saved === 'light' || saved === 'dark') ? saved : 'dark';
-          document.documentElement.dataset.theme = theme;
-          if (theme === 'dark') {
-            document.documentElement.classList.add('dark');
-            document.body && document.body.classList.add('dark');
-          }
-        } catch (e) {}
-      })();
-    </script>
-  </head>
-  <body class="antialiased selection:bg-brand-500 selection:text-white">
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Swar - Every Sign Has a Voice</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0b1320;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="w-full border-b border-slate-800 bg-slate-950/80 sticky top-0 z-50 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Logo & Brand Name -->
+      <div class="flex items-center gap-3">
+        <!-- Update src path if you placed logo in a subfolder like assets/logo.jpg -->
+        <img 
+          src="logo.jpg" 
+          alt="SWAR Logo" 
+          class="w-9 h-9 rounded-full object-cover border border-cyan-500/40"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />
+        <!-- Fallback icon if image path isn't found locally -->
+        <div class="w-9 h-9 rounded-full bg-cyan-500/20 border border-cyan-400/40 hidden items-center justify-center font-bold text-cyan-400 text-xs">
+          S
+        </div>
+        <div>
+          <span class="font-bold text-white tracking-widest text-lg block leading-none">SWAR</span>
+          <span class="text-[9px] text-cyan-400 tracking-wider uppercase font-semibold">EVERY SIGN HAS A VOICE</span>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="hidden md:flex items-center gap-1 text-xs font-medium">
+        <a href="#" class="px-3 py-2 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 flex items-center gap-1.5">
+          <span>✨</span> Home
+        </a>
+        <a href="#" class="px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/50 flex items-center gap-1.5 transition">
+          <span>📷</span> Translator
+        </a>
+        <a href="#" class="px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/50 flex items-center gap-1.5 transition">
+          <span>💬</span> Conversation
+        </a>
+        <a href="#" class="px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/50 flex items-center gap-1.5 transition">
+          <span>📜</span> History
+        </a>
+        <a href="#" class="px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/50 flex items-center gap-1.5 transition">
+          <span>📊</span> Dashboard
+        </a>
+        <a href="#" class="px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/50 flex items-center gap-1.5 transition">
+          <span>📖</span> Learn Signs
+        </a>
+      </nav>
+
+      <!-- User Badge & Mode Switcher -->
+      <div class="flex items-center gap-3">
+        <button class="px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-900 text-slate-300 text-xs flex items-center gap-1.5 hover:bg-slate-800 transition">
+          <span>☀️</span> Light Mode
+        </button>
+        <div class="flex items-center gap-2 bg-slate-900 border border-slate-800 px-2.5 py-1 rounded-full text-xs text-slate-300">
+          <div class="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-300 flex items-center justify-center text-[10px] font-bold">
+            S
+          </div>
+          <span class="max-w-[100px] truncate">srilikhithanook...</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN HERO SECTION -->
+  <main class="flex-1 flex items-center justify-center p-6">
+    <div class="max-w-3xl w-full text-center space-y-6">
+      
+      <!-- Central Hero Logo Card -->
+      <div class="flex justify-center">
+        <div class="relative group">
+          <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-2xl blur opacity-30 group-hover:opacity-75 transition duration-500"></div>
+          
+          <img 
+            src="logo.jpg" 
+            alt="SWAR Logo" 
+            class="relative w-28 h-28 rounded-2xl object-cover border-2 border-cyan-400/40 bg-slate-900 p-1 shadow-2xl"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+
+          <!-- Fallback placeholder box -->
+          <div class="relative w-28 h-28 rounded-2xl border-2 border-cyan-400/40 bg-slate-900 hidden flex-col items-center justify-center p-2 shadow-2xl">
+            <span class="text-2xl font-bold text-cyan-400">SWAR</span>
+            <span class="text-[9px] text-slate-400 mt-1">Logo File Missing</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- App Title & Tagline -->
+      <div class="space-y-2">
+        <h1 class="text-5xl font-extrabold tracking-tight text-white sm:text-6xl">
+          SWAR
+        </h1>
+        <p class="text-xl font-semibold text-cyan-400 italic">
+          “Every Sign Has a Voice”
+        </p>
+      </div>
+
+      <!-- Description -->
+      <p class="text-slate-400 text-base max-w-2xl mx-auto leading-relaxed">
+        An AI-powered communication assistant that converts sign-language gestures into text and speech, helping people communicate naturally without requiring a human translator.
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+        <a href="#" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-cyan-400 text-slate-950 font-semibold hover:bg-cyan-300 transition flex items-center justify-center gap-2 shadow-lg shadow-cyan-400/20">
+          <span>📷</span> Start Translating Live &rarr;
+        </a>
+        <a href="#" class="w-full sm:w-auto px-6 py-3 rounded-xl border border-slate-700 bg-slate-900/80 text-white font-semibold hover:bg-slate-800 transition flex items-center justify-center gap-2">
+          <span>💬</span> Try Conversation Mode
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="w-full py-4 border-t border-slate-900 text-center text-xs text-slate-500">
+    © 2026 SWAR AI Platform. All rights reserved.
+  </footer>
+
+</body>
 </html>
