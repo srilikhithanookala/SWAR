@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { LogOut, KeyRound, Mail, ArrowRight, CheckCircle2, ShieldCheck, RefreshCw, Send, Bell, Zap, AlertCircle, Sparkles } from 'lucide-react';
+import { LogOut, KeyRound, Mail, ArrowRight, CheckCircle2, ShieldCheck, RefreshCw, Send, Bell, Zap, AlertCircle } from 'lucide-react';
 import { sendOtpToEmail, verifyOtpCode, loginAsGuest, logoutUser } from '../services/supabaseClient';
 
 export default function AuthPage({ currentUser, setCurrentUser }) {
@@ -14,7 +14,7 @@ export default function AuthPage({ currentUser, setCurrentUser }) {
 
   const otpInputRef = useRef(null);
 
-  // Auto-focus OTP input when stepping into OTP view
+  // Auto-focus OTP input when entering OTP step
   useEffect(() => {
     if (step === 'otp' && otpInputRef.current) {
       otpInputRef.current.focus();
@@ -88,6 +88,7 @@ export default function AuthPage({ currentUser, setCurrentUser }) {
     setActiveOtpCode('');
   };
 
+  // If user is already logged in, show User Profile
   if (currentUser) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-12 space-y-8 animate-fade-in">
@@ -99,7 +100,12 @@ export default function AuthPage({ currentUser, setCurrentUser }) {
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                  {currentUser.name || 'SignBridge User'}
+                  {currentUser.name || 'SWAR User'}
+                  {currentUser.isGuest && (
+                    <span className="text-xs px-2.5 py-0.5 bg-amber-100 text-amber-800 rounded-full font-bold">
+                      Guest Session
+                    </span>
+                  )}
                 </h1>
                 <p className="text-xs text-slate-500">{currentUser.email}</p>
               </div>
@@ -125,12 +131,14 @@ export default function AuthPage({ currentUser, setCurrentUser }) {
   return (
     <div className="max-w-md mx-auto px-4 py-12 animate-fade-in">
       <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-8 shadow-2xl space-y-6">
+        
+        {/* Header Logo */}
         <div className="text-center space-y-2">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 to-purpleBrand-600 text-white flex items-center justify-center font-extrabold text-3xl mx-auto shadow-glow">
-            🤟
+          <div className="w-16 h-16 rounded-2xl overflow-hidden shadow-glow mx-auto border border-slate-700/60 bg-slate-900 flex items-center justify-center p-1">
+            <img src="/swar-icon.png" alt="SWAR Logo" className="w-full h-full object-cover rounded-xl" />
           </div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">SignBridge AI Sign In</h1>
-          <p className="text-xs text-slate-500">Enter your email to receive a 6-digit verification code.</p>
+          <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-wide">SWAR Sign In</h1>
+          <p className="text-xs text-slate-500">Every Sign Has a Voice. Enter your email to receive an OTP.</p>
         </div>
 
         {errorMsg && (
@@ -187,6 +195,19 @@ export default function AuthPage({ currentUser, setCurrentUser }) {
               </div>
             </div>
 
+            <div>
+              <label className="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                Full Name (Optional)
+              </label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Alex Johnson"
+                className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 font-medium"
+              />
+            </div>
+
             <button
               type="submit"
               disabled={loading}
@@ -199,61 +220,51 @@ export default function AuthPage({ currentUser, setCurrentUser }) {
           <form onSubmit={handleVerifyOtp} className="space-y-4">
             <div>
               <label className="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">
-                Enter 6-Digit Verification Code
+                Enter 6-Digit Code
               </label>
               <div className="relative">
-                <KeyRound className="w-4 h-4 text-brand-600 absolute left-3.5 top-1/2 -translate-y-1/2 z-10" />
+                <KeyRound className="w-4 h-4 text-brand-600 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
                   ref={otpInputRef}
                   type="text"
-                  required
-                  inputMode="numeric"
-                  pattern="[0-9]*"
                   maxLength={6}
+                  required
                   value={otpCode}
-                  onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                  placeholder="123456"
-                  className="w-full pl-10 pr-4 py-3 bg-white dark:bg-slate-800 border-2 border-brand-500 rounded-xl text-2xl font-mono font-extrabold tracking-widest text-slate-900 dark:text-white text-center focus:outline-none shadow-sm cursor-text"
-                  style={{ color: '#0F172A', caretColor: '#2563EB' }}
+                  onChange={(e) => setOtpCode(e.target.value)}
+                  placeholder="••••••"
+                  className="w-full pl-10 pr-4 py-3 bg-white dark:bg-slate-900 border-2 border-brand-500 rounded-xl text-center text-lg tracking-widest font-mono font-bold text-slate-900 dark:text-white focus:outline-none shadow-sm"
                 />
               </div>
             </div>
 
             <button
               type="submit"
-              disabled={loading || !otpCode}
-              className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white rounded-xl text-xs font-bold shadow-md transition flex items-center justify-center gap-2"
+              disabled={loading}
+              className="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-xs font-bold shadow-md transition flex items-center justify-center gap-2"
             >
-              <CheckCircle2 className="w-4 h-4" /> {loading ? 'Verifying OTP...' : 'Verify OTP & Unlock Access'}
+              <CheckCircle2 className="w-4 h-4" /> {loading ? 'Verifying Code...' : 'Verify & Continue'}
             </button>
 
             <button
               type="button"
-              onClick={() => {
-                setStep('email');
-                setOtpCode('');
-              }}
-              className="w-full py-2 text-xs font-semibold text-slate-500 hover:text-slate-800 transition flex items-center justify-center gap-1"
+              onClick={() => { setStep('email'); setOtpCode(''); }}
+              className="w-full text-center text-xs text-slate-500 hover:text-slate-800 transition"
             >
-              <RefreshCw className="w-3.5 h-3.5" /> Back to Change Email
+              ← Change email address
             </button>
           </form>
         )}
 
-        <div className="relative pt-2">
-          <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-slate-200 dark:border-slate-800" /></div>
-          <div className="relative flex justify-center text-[10px] uppercase font-bold text-slate-400">
-            <span className="bg-white dark:bg-slate-900 px-3">Instant Access</span>
-          </div>
+        {/* Guest mode */}
+        <div className="pt-4 border-t border-slate-100 dark:border-slate-800 text-center">
+          <button
+            type="button"
+            onClick={handleGuestAccess}
+            className="w-full py-2.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-2"
+          >
+            <Sparkles className="w-4 h-4 text-purpleBrand-600" /> Continue as Guest Advocate
+          </button>
         </div>
-
-        <button
-          type="button"
-          onClick={handleGuestAccess}
-          className="w-full py-3 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-white rounded-xl text-xs font-bold border border-slate-200 dark:border-slate-700 transition flex items-center justify-center gap-2"
-        >
-          <Sparkles className="w-4 h-4 text-purpleBrand-600" /> Continue as Guest Advocate
-        </button>
 
       </div>
     </div>
