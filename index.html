@@ -23,11 +23,14 @@
       <!-- Logo & Brand Name -->
       <div class="flex items-center gap-3">
         <img 
-          src="WhatsApp Image 2026-11-04 at 20.27.46.jpeg" 
+          src="/logo.jpg" 
           alt="SWAR Logo" 
           class="w-10 h-10 rounded-full object-cover border border-cyan-500/40 shadow-sm"
-          onerror="this.src='./WhatsApp Image 2026-11-04 at 20.27.46.jpeg';"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
         />
+        <div class="w-10 h-10 rounded-full bg-cyan-500/20 border border-cyan-400/40 hidden items-center justify-center font-bold text-cyan-400 text-xs">
+          S
+        </div>
         <div>
           <span class="font-bold text-white tracking-widest text-lg block leading-none">SWAR</span>
           <span class="text-[9px] text-cyan-400 tracking-wider uppercase font-semibold">EVERY SIGN HAS A VOICE</span>
@@ -78,4 +81,53 @@
       <!-- Central Hero Logo Card -->
       <div class="flex justify-center">
         <div class="relative group">
-          <div class="absolute -inset-1 bg-gradient-to-r from
+          <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-2xl blur opacity-40 group-hover:opacity-75 transition duration-500"></div>
+          
+          <img 
+            src="/logo.jpg" 
+            alt="SWAR Logo" 
+            class="relative w-28 h-28 rounded-2xl object-cover border-2 border-cyan-400/50 bg-slate-900 p-1 shadow-2xl"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          />
+
+          <div class="relative w-28 h-28 rounded-2xl border-2 border-cyan-400/50 bg-slate-900 hidden flex-col items-center justify-center p-2 shadow-2xl">
+            <span class="text-2xl font-bold text-cyan-400">SWAR</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- App Title & Tagline -->
+      <div class="space-y-2">
+        <h1 class="text-5xl font-extrabold tracking-tight text-white sm:text-6xl">
+          SWAR
+        </h1>
+        <p class="text-xl font-semibold text-cyan-400 italic">
+          “Every Sign Has a Voice”
+        </p>
+      </div>
+
+      <!-- Description -->
+      <p class="text-slate-400 text-base max-w-2xl mx-auto leading-relaxed">
+        An AI-powered communication assistant that converts sign-language gestures into text and speech, helping people communicate naturally without requiring a human translator.
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+        <a href="#" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-cyan-400 text-slate-950 font-semibold hover:bg-cyan-300 transition flex items-center justify-center gap-2 shadow-lg shadow-cyan-400/20">
+          <span>📷</span> Start Translating Live &rarr;
+        </a>
+        <a href="#" class="w-full sm:w-auto px-6 py-3 rounded-xl border border-slate-700 bg-slate-900/80 text-white font-semibold hover:bg-slate-800 transition flex items-center justify-center gap-2">
+          <span>💬</span> Try Conversation Mode
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="w-full py-4 border-t border-slate-900 text-center text-xs text-slate-500">
+    © 2026 SWAR AI Platform. All rights reserved.
+  </footer>
+
+</body>
+</html>
