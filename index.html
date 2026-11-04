@@ -22,22 +22,12 @@
       
       <!-- Logo & Brand Name -->
       <div class="flex items-center gap-3">
-        <!-- SVG rendering of your exact logo design -->
-        <div class="w-10 h-10 rounded-full bg-slate-900 border border-purple-500/40 p-1 flex items-center justify-center shadow-lg">
-          <svg viewBox="0 0 100 100" class="w-full h-full">
-            <defs>
-              <linearGradient id="navGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#38bdf8" />
-                <stop offset="50%" stop-color="#818cf8" />
-                <stop offset="100%" stop-color="#c084fc" />
-              </linearGradient>
-            </defs>
-            <!-- S-Shape with Hand Gesture & Face Profile -->
-            <path d="M 65 25 C 45 10, 25 35, 45 50 C 65 65, 55 90, 30 85 C 45 95, 75 80, 60 55 C 45 40, 75 35, 65 25 Z" fill="url(#navGrad)"/>
-            <circle cx="50" cy="30" r="3" fill="#38bdf8"/>
-            <path d="M 68 45 Q 73 50 68 55 M 73 40 Q 80 50 73 60" stroke="#c084fc" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-          </svg>
-        </div>
+        <!-- Main Image Tag targeting your actual logo file -->
+        <img 
+          src="/logo.jpg" 
+          alt="SWAR Logo" 
+          class="w-10 h-10 rounded-xl object-cover border border-cyan-500/30 shadow-md"
+        />
         <div>
           <span class="font-bold text-white tracking-widest text-lg block leading-none">SWAR</span>
           <span class="text-[9px] text-cyan-400 tracking-wider uppercase font-semibold">EVERY SIGN HAS A VOICE</span>
@@ -85,38 +75,18 @@
   <main class="flex-1 flex items-center justify-center p-6">
     <div class="max-w-3xl w-full text-center space-y-6">
       
-      <!-- CENTRAL HERO LOGO CARD (Exact Logo Rendered directly inside code) -->
+      <!-- Central Hero Logo Card -->
       <div class="flex justify-center">
         <div class="relative group">
-          <!-- Outer glowing aura -->
-          <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-600 rounded-3xl blur opacity-50 group-hover:opacity-80 transition duration-500"></div>
+          <!-- Glow effect -->
+          <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-600 rounded-3xl blur opacity-40 group-hover:opacity-75 transition duration-500"></div>
           
-          <!-- Logo container box -->
-          <div class="relative w-32 h-32 rounded-3xl border border-purple-500/40 bg-slate-950 p-4 shadow-2xl flex flex-col items-center justify-center">
-            <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-[0_0_12px_rgba(168,85,247,0.4)]">
-              <defs>
-                <linearGradient id="heroGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#38bdf8" />
-                  <stop offset="50%" stop-color="#818cf8" />
-                  <stop offset="100%" stop-color="#c084fc" />
-                </linearGradient>
-              </defs>
-
-              <!-- Top Hand gesture pinch -->
-              <path d="M 45 18 C 50 10, 58 12, 54 22 C 52 26, 48 26, 45 22 Z" fill="url(#heroGrad)"/>
-              <path d="M 52 14 C 58 8, 64 12, 58 20" stroke="url(#heroGrad)" stroke-width="3" stroke-linecap="round" fill="none"/>
-
-              <!-- Main S-Shape body forming hand & face profile -->
-              <path d="M 56 22 C 35 15, 20 35, 38 52 C 54 66, 48 84, 28 80 C 42 94, 72 82, 60 58 C 48 44, 68 32, 56 22 Z" fill="url(#heroGrad)"/>
-              
-              <!-- Face Profile Silhouette Nose & Lip Details -->
-              <path d="M 58 40 Q 64 43 60 48 Q 63 50 60 54 Q 56 58 52 56" stroke="#0b1320" stroke-width="2" fill="none"/>
-              
-              <!-- Voice waves -->
-              <path d="M 66 42 Q 72 48 66 54" stroke="#c084fc" stroke-width="3" stroke-linecap="round" fill="none"/>
-              <path d="M 72 36 Q 81 48 72 60" stroke="#c084fc" stroke-width="3" stroke-linecap="round" fill="none"/>
-            </svg>
-          </div>
+          <!-- Image Container displaying your exact logo image -->
+          <img 
+            src="/logo.jpg" 
+            alt="SWAR Logo" 
+            class="relative w-32 h-32 rounded-3xl object-cover border-2 border-cyan-400/40 bg-slate-950 p-1 shadow-2xl"
+          />
         </div>
       </div>
 
