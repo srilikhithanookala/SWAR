@@ -8,14 +8,21 @@ export default function LandingPage({ onNavigate }) {
       {/* Hero Section */}
       <section className="relative overflow-hidden pt-12 pb-16 lg:pt-20 lg:pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
+          
+          {/* Hero Logo Emblem */}
+          <div className="flex justify-center">
+            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl overflow-hidden shadow-2xl p-1 bg-gradient-to-tr from-brand-500/30 via-slate-800 to-purpleBrand-500/30 border border-slate-700/60 animate-pop-in">
+              <img src="/swar-icon.png" alt="SWAR Logo" className="w-full h-full object-cover rounded-2xl" />
+            </div>
+          </div>
 
           {/* Title & Tagline */}
           <div className="space-y-4 max-w-4xl mx-auto">
-            <h1 className="text-4xl sm:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
-              SignBridge AI
+            <h1 className="text-5xl sm:text-7xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
+              SWAR
             </h1>
             <p className="text-2xl sm:text-3xl font-extrabold text-blue-600 dark:text-blue-400">
-              “From Hands to Voice. From Silence to Conversation.”
+              “Every Sign Has a Voice”
             </p>
             <p className="text-lg sm:text-xl text-slate-700 dark:text-slate-200 max-w-2xl mx-auto font-medium leading-relaxed">
               An AI-powered communication assistant that converts sign-language gestures into text and speech, helping people communicate naturally without requiring a human translator.
@@ -44,14 +51,14 @@ export default function LandingPage({ onNavigate }) {
         </div>
       </section>
 
-      {/* Why SignBridge AI? - Bottom Section */}
+      {/* Why SWAR? - Bottom Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 sm:p-12 border-2 border-slate-200 dark:border-slate-800 shadow-soft space-y-8">
           
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-6">
             <div>
               <span className="text-xs font-extrabold uppercase tracking-widest text-blue-600">Platform Vision</span>
-              <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white">Why SignBridge AI?</h2>
+              <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white">Why SWAR?</h2>
             </div>
             <div className="px-4 py-1.5 bg-blue-50 dark:bg-slate-800 border border-blue-200 dark:border-slate-700 rounded-full text-xs font-bold text-blue-700 dark:text-blue-300">
               Universal Communication Solution
